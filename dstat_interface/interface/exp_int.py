@@ -41,7 +41,7 @@ class ExpInterface(object):
     def get_params(self):
         """Returns a dict of parameters for experiment."""
         parameters = {}    
-        for key, value in self.entry.iteritems():
+        for key, value in self.entry.items():
             parameters[key] = int(value.get_text())    
         return parameters
         
@@ -210,7 +210,7 @@ class PD(ExpInterface):
         self.entry['time'] = self.builder.get_object('time_entry')
         self.entry['interlock'] = self.builder.get_object('interlock_button')
         
-        self.buttons = map(self.builder.get_object, ['light_button', 'threshold_button'])
+        self.buttons = list(map(self.builder.get_object, ['light_button', 'threshold_button']))
         
     def on_light_button_clicked(self, data=None):
         __main__.MAIN.on_pot_stop_clicked()
@@ -338,7 +338,7 @@ class CAL(ExpInterface):
                 
     def on_measure_button_clicked(self, data=None):
         if (int(self.entry['time'].get_text()) <= 0 or int(self.entry['time'].get_text()) > 65535):
-            print "ERR: Time out of range"
+            print("ERR: Time out of range")
             return
         
         for i in self.buttons:

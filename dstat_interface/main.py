@@ -21,7 +21,7 @@
 """ GUI Interface for Wheeler Lab DStat """
 
 import sys,os
-from errors import InputError, VarError, ErrorLogger
+from .errors import InputError, VarError, ErrorLogger
 _logger = ErrorLogger(sender="dstat-interface-main")
 
 try:
@@ -43,12 +43,12 @@ except ImportError:
 
 os.chdir(os.path.dirname(os.path.abspath(sys.argv[0])))
 
-import interface.save as save
-import dstat_comm as comm
-import interface.exp_window as exp_window
-import interface.adc_pot as adc_pot
-import plot
-import microdrop
+from . import interface.save as save
+from . import dstat_comm as comm
+from . import interface.exp_window as exp_window
+from . import interface.adc_pot as adc_pot
+from . import plot
+from . import microdrop
 
 from serial import SerialException
 import multiprocessing
@@ -267,7 +267,7 @@ class Main(object):
         try:                    
             incoming = comm.serial_instance.data_pipe_p.recv()
 
-            if isinstance(incoming, basestring): # test if incoming is str
+            if isinstance(incoming, str): # test if incoming is str
                 self.on_serial_disconnect_clicked()
                 return False
                 
@@ -631,30 +631,30 @@ class Main(object):
                 exceptions()
                 
         except ValueError as i:
-            print i
+            print(i)
             self.statusbar.push(self.error_context_id, 
                                 "Experiment parameters must be integers.")
             exceptions()
         
         except KeyError as i:
-            print i
+            print(i)
             self.statusbar.push(self.error_context_id, 
                                 "Experiment parameters must be integers.")
             exceptions()
         
         except InputError as err:
-            print err
+            print(err)
             self.statusbar.push(self.error_context_id, err.msg)
             exceptions()
         
         except SerialException as err:
-            print err
+            print(err)
             self.statusbar.push(self.error_context_id, 
                                 "Could not establish serial connection.")
             exceptions()
 
         except AssertionError as err:
-            print err
+            print(err)
             self.statusbar.push(self.error_context_id, str(err))
             exceptions()
 
@@ -669,7 +669,7 @@ class Main(object):
         """
         try:
             incoming = comm.serial_instance.data_pipe_p.recv()
-            if isinstance(incoming, basestring): # Test if incoming is str
+            if isinstance(incoming, str): # Test if incoming is str
                 self.experiment_done()
                 self.on_serial_disconnect_clicked()
                 return False
@@ -688,11 +688,11 @@ class Main(object):
             return True
 
         except EOFError as err:
-            print err
+            print(err)
             self.experiment_done()
             return False
         except IOError as err:
-            print err
+            print(err)
             self.experiment_done()
             return False
             

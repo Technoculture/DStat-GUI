@@ -54,4 +54,4 @@ class ErrorLogger(object):
     
     def error(self, msg, level):
         if level in self.level:
-            print "[%s (%s)] %s" % (self.sender, level, str(msg))
+            print("[%s (%s)] %s" % (self.sender, level, str(msg)))

@@ -43,7 +43,7 @@ def manSave(current_exp):
     
     if response == gtk.RESPONSE_OK:
         path = fcd.get_filename()
-        print "Selected filepath: %s" % path
+        print("Selected filepath: %s" % path)
         filter_selection = fcd.get_filter().get_name()
         
         if filter_selection.endswith("(.npy)"):
@@ -76,7 +76,7 @@ def plotSave(plot):
     
     if response == gtk.RESPONSE_OK:
         path = fcd.get_filename()
-        print "Selected filepath: %s" % path
+        print("Selected filepath: %s" % path)
         filter_selection = fcd.get_filter().get_name()
         
         if filter_selection.endswith("(.pdf)"):
