@@ -56,7 +56,7 @@ class microdropConnection(object):
         [1] -- The recieved message or "" if no message received.
         """
         if self.state == SEND:
-            print("WAR: [uDrop-listen] Connection state invalid, resetting...")
+            print "WAR: [uDrop-listen] Connection state invalid, resetting..."
             # self.reset()
             # self.__init__(self.port)
             return (False, "")
@@ -75,7 +75,7 @@ class microdropConnection(object):
         data -- a str to be sent
         """
         if self.state == RECV:
-            print("WAR: [uDrop-reply] Connection state invalid, resetting...")
+            print "WAR: [uDrop-reply] Connection state invalid, resetting..."
             self.reset()
             self.__init__(self.port)
             return False

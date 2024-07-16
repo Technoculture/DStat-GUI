@@ -22,7 +22,7 @@ from serial.tools import list_ports
 import time
 import struct
 import multiprocessing as mp
-from .errors import InputError, VarError, ErrorLogger
+from errors import InputError, VarError, ErrorLogger
 _logger = ErrorLogger(sender="dstat_comm")
 
 def _serial_process(ser_port, proc_pipe, ctrl_pipe, data_pipe):
@@ -214,7 +214,7 @@ class Settings:
             time.sleep(.5)
             self.ser.write('!')
             
-        write_buffer = list(range(len(self.settings)))
+        write_buffer = range(len(self.settings))
     
         for i in self.settings: # make sure settings are in right order
             write_buffer[self.settings[i][0]] = self.settings[i][1]
@@ -290,7 +290,7 @@ class LightSensor:
                 break
                 
         parted = input.rstrip().split('.')
-        print(parted)
+        print parted
         
         data_pipe.send(parted[0])
         status = "DONE"
@@ -326,14 +326,14 @@ class SerialDevices(object):
     """Retrieves and stores list of serial devices in self.ports"""
     def __init__(self):
         try:
-            self.ports, _, _ = list(zip(*list_ports.comports()))
+            self.ports, _, _ = zip(*list_ports.comports())
         except ValueError:
             self.ports = []
             _logger.error("No serial ports found", "ERR")
     
     def refresh(self):
         """Refreshes list of ports."""
-        self.ports, _, _ = list(zip(*list_ports.comports()))
+        self.ports, _, _ = zip(*list_ports.comports())
 
 class Experiment(object):
     """Store and acquire a potentiostat experiment. Meant to be subclassed

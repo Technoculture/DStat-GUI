@@ -38,7 +38,7 @@ class Experiments:
         exp_section = self.builder.get_object('exp_section_box')
         self.containers = {}
         
-        for key, cls in self.classes.items():
+        for key, cls in self.classes.iteritems():
             self.containers[key] = cls.builder.get_object('scrolledwindow1')
 
         for key in self.containers:
